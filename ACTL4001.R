@@ -3,8 +3,6 @@ install.packages("moments")
 install.packages("actuar")
 install.packages("survival")
 install.packages("MASS")
-install.packages("readxl", repos = "https://cloud.r-project.org")
-library(readxl)
 library(fitdistrplus)
 library(actuar)
 library(moments)
@@ -17,19 +15,17 @@ library(MASS)
 # SHEETS READING
 # ==============================================================================
 
-cargo_freq <- read_xlsx("C:/Uni - Year 4/ACTL4001/Clean.xlsx", sheet = "Cargo freq")
-cargo_sev <- read_xlsx("C:/Uni - Year 4/ACTL4001/Clean.xlsx", sheet = "Cargo sev")
-bus_freq <- read_xlsx("C:/Uni - Year 4/ACTL4001/Clean.xlsx", sheet = "Bus freq")
-bus_sev <- read_xlsx("C:/Uni - Year 4/ACTL4001/Clean.xlsx", sheet = "Bus sev")
-equip_freq <- read_xlsx("C:/Uni - Year 4/ACTL4001/Clean.xlsx", sheet = "Equip freq")
-equip_sev <- read_xlsx("C:/Uni - Year 4/ACTL4001/Clean.xlsx", sheet = "Equip sev")
-worker_freq <- read_xlsx("C:/Uni - Year 4/ACTL4001/Clean.xlsx", sheet = "Worker freq")
-worker_sev <- read_xlsx("C:/Uni - Year 4/ACTL4001/Clean.xlsx", sheet = "Worker sev")
-interest <- read_xlsx("C:/Uni - Year 4/ACTL4001/Clean.xlsx", sheet = "Interest")
-inventory <- read_xlsx("C:/Uni - Year 4/ACTL4001/Clean.xlsx", sheet = "Inventory")
-personnel <- read_xlsx("C:/Uni - Year 4/ACTL4001/Clean.xlsx", sheet = "Personnel")
-
-
+bus_freq = read.csv("Clean(Bus freq).csv")
+bus_sev = read.csv("Clean(Bus sev).csv")
+cargo_freq = read.csv("Clean(Cargo freq).csv")
+cargo_sev = read.csv("Clean(Cargo sev).csv")
+equip_freq = read.csv("Clean(Equip freq).csv")
+equip_sev = read.csv("Clean(Equip sev).csv")
+worker_freq = read.csv("Clean(Worker freq).csv")
+worker_sev = read.csv("Clean(Worker sev).csv")
+interest = read.csv("Clean(Interest).csv")
+inventory = read.csv("Clean(Inventory).csv")
+personnel = read.csv("Clean(Personnel).csv")
 
 
 
