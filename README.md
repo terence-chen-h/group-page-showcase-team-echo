@@ -52,24 +52,18 @@ Cramer-von Mises|90.850|91.957|**78.302**
 AIC|37,015.89|38,480.55|**36,152.54**
 BIC|37,026.96|38,491.62|**36,163.62**
 
-Based on these indicators, the Lognormal distribution was the best fit for the Business Interruption and Equipment Failure hazards, while the Log-logistic model was the best for modelling Cargo Loss and Worker's Compensation claims.
+Based on these indicators, the Lognormal distribution is the best fit for the Business Interruption and Equipment Failure hazards since all test statistics and information criteria for the Lognormal distirbution was the lowest out of the 3 candidate models. Similarly, the Log-logistic distribution is the most suitable model for modelling Cargo Loss and Worker's Compensation claims.
+
+# Risk Profiles
+## Helionis Cluster
+In the Helionis Cluster, the 2 planets used for mining have largely stable environments which have ‘hosted long-standing mining operations’, where high level risks would be extremely rare on the surface. The main risk on the ground revolves around the use of older equipment, where 5% of the machinery within the Helionis Cluster has been used for over 20 years. Conversely, the other 2 solar systems do not use any equipment over 20 years old to mitigate the risk of a natural breakdown, thus making extractors and carriers from the Helionis Cluster more susceptible to mechanical failures and increased maintenance costs. In addition to the risks faced on the surface, the main dangers which Galaxy General Insurance must consider what lies within the asteroid clusters in the outer system. From inventory damage caused by direct asteroid collisions to the occasional relocation of satellites, the logistics of the supply route creates the most volatility. Consequently, this has resulted in higher premiums for cargo loss and equipment failure insurance which reflects the higher risk of transporting goods in and out of a potentially dangerous asteroid zone in the Helionis Cluster.
+
+## Bayesia System
+The risk profile of the Bayesian system is almost the opposite of the Helionis cluster. Satellite communication and supply routes have been well established with stable asteroid movements, while the ground operations are prone to the most risk. With spikes in temperature and radiation, this places a large portion of exploration and extraction operators in danger of health issues such as hyperthermia or radiation induced cancer, while this extreme environment may also damage mining equipment. As a result, Galaxy General Insurance has set higher premiums when insuring worker’s compensation, since the main dangers in the Bayesian system affect the physical safety of employees.
+
+## Oryn Delta
+The Oryn Delta presents the greatest volatility to claim frequency and severity in all hazard areas. With increasing ventures beyond the habitable zone, accurate pricing of insurance policies becomes more difficult as there is no guarantee the developing infrastructure can sustain long-term operations in more dangerous regions. Even if these operations are successful, the supply routes are not well established and it is uncertain what other dangers lie beyond the habitable zone, which will significantly impact business interruption, cargo loss and equipment failure claims. Low knowledge of unreported risks to employees such as high levels of radiation or other toxic chemicals in the environment would pose a major threat to ground workers such as geologists and drilling operators. Similarly, unforeseen cosmic radiation would negatively affect spacecraft operators, leading to increased claims for worker’s compensation relative to the other solar systems. Therefore, insurance premiums for Oryn Delta are priced higher than the Helionis Cluster and the Bayesian system to reflect the increased risk.
+
+See the full breakdown of risks per solar system and hazard area here: [Risk Assessment](https://github.com/terence-chen-h/group-page-showcase-team-echo/blob/main/Risk%20Assessment.docx)
 
 
-
-
-### Congrats on completing the [2026 SOA Research Challenge](https://www.soa.org/research/opportunities/2026-student-research-case-study-challenge/)!
-
-
-> Now it's time to build your own website to showcase your work.  
-> Creating a website using GitHub Pages is simple and a great way to present your project.
-
-This page is written in Markdown.
-- Click the [assignment link](https://classroom.github.com/a/FxAEmrI0) to accept your assignment.
-
----
-
-> Be creative! You can embed or link your [data](player_data_salaries_2020.csv), [code](sample-data-clean.ipynb), and [images](ACC.png) here.
-
-More information on GitHub Pages can be found [here](https://pages.github.com/).
-
-![](Actuarial.gif)
