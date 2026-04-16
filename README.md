@@ -1,6 +1,19 @@
 # Actuarial Theory and Practice A - Team Echo
 By: Terence Chenh and Jian Wang
 
+# Product Design
+### Business Interruptions
+Annual premium for business interruption insurance is $1,056,671 across all 3 solar systems, but policy limit is $15 million for Helionis cluster and Oryn Delta to reflect the potential for higher claims, whilst the policy limit for Bayesia system is $20 million due to the lower risk. Eligibility to claim under this policy is mainly triggered by disruptions to the supply chain network, including radiation spikes, asteroid debris, collisions and solar flares. Policy limits can be adjusted if risk profiles of any solar system changes but will not cover widescale cosmic catastrophes such as black holes, meteor showers or disruptions due to interstellar conflicts.
+
+### Cargo Loss
+The premium for cargo loss insurance depends on the shipment’s route risk, ranging from $1,144,612 for safe routes to $6,492,337 per year for risky level 5 routes to cover the cost of raw minerals and transportation expenses. This policy covers damage to raw materials caused by asteroid collisions with freight or vehicle depressurisation, in addition to missing cargo due to navigation system errors. For the claim to be eligible for coverage, data from the freight’s black box must be provided as evidence to determine the cause of inventory loss or damage. This policy has a flexible claim limit of $20 million based on tail risk and excludes damage to raw materials caused by human error, incorrect handling and packaging, or low natural quality of inventory.
+
+### Equipment Failure
+The standard annual premium for equipment insurance is $15,861 but the price will be much higher for Quantum Bores, Ion Pulverisers and Fexstram Carriers due to the higher risk index and premiums are highest in the Oryn Delta because of the dangers of operating equipment in unknown environments. Policy triggers include but are not limited to mechanical breakdowns, technological malfunctions or damage caused by the external environment such as extreme heat, gravity or radiation (PSC 2026). Exclusions for coverage include natural wear and tear, equipment over 20 years old, breach in protocol, and standard maintenance costs. Breakdowns caused by internal design defects are not covered but may be eligible for warranty by the equipment manufacturer.
+
+### Workers' Compensation
+Due to the variance in environmental conditions affecting each solar system, Galaxy General Insurance will also pay out 2% of the employee’s salary if the claim is from the Oryn Delta, 1.5% in the Bayesia system, and 0.5% in the Helionis cluster. The annual premiums for workers in the Oryn Delta, Bayesia system and Helionis cluster are $2,498, $1,819 and $603 respectively, reflecting the high temperatures and radiation in the Bayesia system, and the volatile asteroid ring in the Oryn Delta which threatens the safety of Cosmic Mining employees.
+
 ---
 # Data Cleaning
 Before modelling, data cleaning was required as the raw data provided had missing values and a range of data entry errors. To correct this, rows with missing values were removed and claim counts were rounded to the nearest integer. Another issue found was that the claim amounts for Worker's Compensation was $5-170, according to the provided Data Dictionary, which is highy unfeasible for employees that are injured for an extended period of time. As a result, our team interpreted this as a data entry error, instead, analysing the data under the assumption that the intended range was 5,000 to 170,000 per claim.
@@ -9,14 +22,14 @@ Run the full data cleaning code here: [Initial Cleaning](https://github.com/tere
 
 ---
 # Model Selection
-## Claim Frequency
+### Claim Frequency
 For claim frequency, the main candidate models were:
 - Poisson
 - Negative Binomial
 
 For all 4 hazard areas, the variance of the data was substantially greater than the mean, making the Poisson distribution unsuitable as the key assumption for the Poisson distribution is that the mean and variance is approximately equal. Therefore, the Negative Binomial was used to model the claim frequencies for each individual hazard area.
 
-## Claim Severity
+### Claim Severity
 The potential distributions considered for modelling claim amounts were:
 - Lognormal
 - Weibull
@@ -53,32 +66,26 @@ BIC|37,026.96|38,491.62|**36,163.62**
 
 Based on these indicators, the Lognormal distribution was the best fit for the Business Interruption and Equipment Failure hazards as all test statistics and information criteria for the Lognormal distirbution were the lowest out of the 3 candidate models. Similarly, the Log-logistic distribution is the most suitable model for modelling Cargo Loss and Worker's Compensation claims.
 
-## Aggregates and Simulation
+### Aggregates and Simulation
 Models for each of the hazards were then built using all covariates excluding ID related variables due to ID variables having too much granularity which would potentially overfit the datasets. The exposure covariate was also removed from the severity models as it was already accounted in the frequency models and the aggregate expected loss was calculated using the expected frequency, variance and claim amounts. 50000 simulations were then run for each hazard to produce projected values and confidence intervals for expected shortfall and value at risk.
 
-## Pricing
+### Pricing
 The projected aggregate loss for each hazard was then divided by the total exposure in frequency to obtain a premium value per unit of annual exposure. Next, a risk loading factor based on the 95% (industry standard) confidence interval for value at risk was used over a percentage factor to account for different risk profiles and affordability for lower claim severities. Similarly, a 5% profit margin was chosen to support affordability and applied to the claim to obtain a final premium price per year of annual exposure.
 
-## Solar Systems
-The same process was then run across each solar system by selecting data rows from each individual solar system to investigate the different risk profiles. Cargo Loss was assumed to not be tied to a singular solar system and hence was excluded from the modelling process. Zeta was found to have the highest aggregate loss at $20668030903, followed by Epislon at $19011315936 and Helionis Cluster at $8886363866.
+### Solar Systems
+The same process was then run across each solar system by selecting data rows from each individual solar system to investigate the different risk profiles. Cargo Loss was assumed to not be tied to a singular solar system and hence was excluded from the modelling process. Zeta was found to have the highest aggregate loss at $20668030903, followed by Epsilon at $19011315936 and Helionis Cluster at $8886363866.
 
-## Sensitivity Analysis and Scenario Testing
-Three scenarios for sensitivity analysis were considered:
-- Moderate Shock (+20% frequency, +25% severity)
-- Significant Shock (+40% frequency, +50% severity)
-- Worst Case Shock (+80% frequency, +100% severity)
-
-## Capped Data
+### Capped Data
 A final run through of the initial capped data was conducted to investigate model differences between datasets. The capped data model was found to have significantly lower, priced premiums which was expected as high claim frequencies and severities outside the given data range were truncated down to the maximum values. Additionally, as the original dataset was tail heavy, we concluded that the capped model was not realistic as it would not account for possible tail risk events.
 
 # Risk Profiles
-## Helionis Cluster
+### Helionis Cluster
 In the Helionis Cluster, the 2 planets used for mining have largely stable environments which have ‘hosted long-standing mining operations’, where high level risks would be extremely rare on the surface. The main risk on the ground revolves around the use of older equipment, where 5% of the machinery within the Helionis Cluster has been used for over 20 years. Conversely, the other 2 solar systems do not use any equipment over 20 years old to mitigate the risk of a natural breakdown, thus making extractors and carriers from the Helionis Cluster more susceptible to mechanical failures and increased maintenance costs. In addition to the risks faced on the surface, the main dangers which Galaxy General Insurance must consider what lies within the asteroid clusters in the outer system. From inventory damage caused by direct asteroid collisions to the occasional relocation of satellites, the logistics of the supply route creates the most volatility. Consequently, this has resulted in higher premiums for cargo loss and equipment failure insurance which reflects the higher risk of transporting goods in and out of a potentially dangerous asteroid zone in the Helionis Cluster.
 
-## Bayesia System
+### Bayesia System
 The risk profile of the Bayesian system is almost the opposite of the Helionis cluster. Satellite communication and supply routes have been well established with stable asteroid movements, while the ground operations are prone to the most risk. With spikes in temperature and radiation, this places a large portion of exploration and extraction operators in danger of health issues such as hyperthermia or radiation induced cancer, while this extreme environment may also damage mining equipment. As a result, Galaxy General Insurance has set higher premiums when insuring worker’s compensation, since the main dangers in the Bayesian system affect the physical safety of employees.
 
-## Oryn Delta
+### Oryn Delta
 The Oryn Delta presents the greatest volatility to claim frequency and severity in all hazard areas. With increasing ventures beyond the habitable zone, accurate pricing of insurance policies becomes more difficult as there is no guarantee the developing infrastructure can sustain long-term operations in more dangerous regions. Even if these operations are successful, the supply routes are not well established and it is uncertain what other dangers lie beyond the habitable zone, which will significantly impact business interruption, cargo loss and equipment failure claims. Low knowledge of unreported risks to employees such as high levels of radiation or other toxic chemicals in the environment would pose a major threat to ground workers such as geologists and drilling operators. Similarly, unforeseen cosmic radiation would negatively affect spacecraft operators, leading to increased claims for worker’s compensation relative to the other solar systems. Therefore, insurance premiums for Oryn Delta are priced higher than the Helionis Cluster and the Bayesian system to reflect the increased risk.
 
 See the full breakdown of risks per solar system and hazard area here: [Risk Assessment](https://github.com/terence-chen-h/group-page-showcase-team-echo/blob/main/Risk%20Assessment.docx)
