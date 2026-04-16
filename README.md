@@ -1,6 +1,5 @@
-# Actuarial Theory and Practice A
-
-_"Actl. What doesn't kill us makes us stronger. Unless we die." – Benjamin Franklin_
+# Actuarial Theory and Practice A - Team Echo
+By: Terence Chenh and Jian Wang
 
 ---
 # Data Cleaning
