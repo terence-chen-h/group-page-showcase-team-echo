@@ -15,7 +15,7 @@ For claim frequency, the main candidate models were:
 - Poisson
 - Negative Binomial
 
-For all 4 hazard areas, the variance of the data was substantially greater than the mean, thus making the Poisson distribution unsuitable since the key assumption for this model is that the mean and variance is approximately equal. Therefore, the Negative Binomial was used to model the claim frequencies for each individual hazard area.
+For all 4 hazard areas, the variance of the data was substantially greater than the mean, making the Poisson distribution unsuitable as the key assumption for the Poisson distribution is that the mean and variance is approximately equal. Therefore, the Negative Binomial was used to model the claim frequencies for each individual hazard area.
 
 ## Claim Severity
 The potential distributions considered for modelling claim amounts were:
@@ -52,7 +52,25 @@ Cramer-von Mises|90.850|91.957|**78.302**
 AIC|37,015.89|38,480.55|**36,152.54**
 BIC|37,026.96|38,491.62|**36,163.62**
 
-Based on these indicators, the Lognormal distribution is the best fit for the Business Interruption and Equipment Failure hazards since all test statistics and information criteria for the Lognormal distirbution was the lowest out of the 3 candidate models. Similarly, the Log-logistic distribution is the most suitable model for modelling Cargo Loss and Worker's Compensation claims.
+Based on these indicators, the Lognormal distribution was the best fit for the Business Interruption and Equipment Failure hazards as all test statistics and information criteria for the Lognormal distirbution were the lowest out of the 3 candidate models. Similarly, the Log-logistic distribution is the most suitable model for modelling Cargo Loss and Worker's Compensation claims.
+
+## Aggregates and Simulation
+Models for each of the hazards were then built using all covariates excluding ID related variables due to ID variables having too much granularity which would potentially overfit the datasets. The exposure covariate was also removed from the severity models as it was already accounted in the frequency models and the aggregate expected loss was calculated using the expected frequency, variance and claim amounts. 50000 simulations were then run for each hazard to produce projected values and confidence intervals for expected shortfall and value at risk.
+
+## Pricing
+The projected aggregate loss for each hazard was then divided by the total exposure in frequency to obtain a premium value per unit of annual exposure. Next, a risk loading factor based on the 95% (industry standard) confidence interval for value at risk was used over a percentage factor to account for different risk profiles and affordability for lower claim severities. Similarly, a 5% profit margin was chosen to support affordability and applied to the claim to obtain a final premium price per year of annual exposure.
+
+## Solar Systems
+The same process was then run across each solar system by selecting data rows from each individual solar system to investigate the different risk profiles. Cargo Loss was assumed to not be tied to a singular solar system and hence was excluded from the modelling process. Zeta was found to have the highest aggregate loss at $20668030903, followed by Epislon at $19011315936 and Helionis Cluster at $8886363866.
+
+## Sensitivity Analysis and Scenario Testing
+Three scenarios for sensitivity analysis were considered:
+- Moderate Shock (+20% frequency, +25% severity)
+- Significant Shock (+40% frequency, +50% severity)
+- Worst Case Shock (+80% frequency, +100% severity)
+
+## Capped Data
+A final run through of the initial capped data was conducted to investigate model differences between datasets. The capped data model was found to have significantly lower, priced premiums which was expected as high claim frequencies and severities outside the given data range were truncated down to the maximum values. Additionally, as the original dataset was tail heavy, we concluded that the capped model was not realistic as it would not account for possible tail risk events.
 
 # Risk Profiles
 ## Helionis Cluster
